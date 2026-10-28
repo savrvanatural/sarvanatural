@@ -192,6 +192,17 @@ export function Header() {
               </Link>
 
               <Link
+                href="/blog"
+                className={`text-sm font-medium transition-colors hover:text-ayur-primary ${
+                  pathname.startsWith("/blog")
+                    ? "text-ayur-primary border-b-2 border-ayur-primary pb-0.5"
+                    : "text-ayur-dark/85"
+                }`}
+              >
+                Blog
+              </Link>
+
+              <Link
                 href="/pages/about-us"
                 className={`text-sm font-medium transition-colors hover:text-ayur-primary ${
                   pathname.startsWith("/pages/about-us") || pathname.startsWith("/pages/our-story")
@@ -370,6 +381,15 @@ export function Header() {
                 </Link>
               </div>
             </div>
+
+            <Link
+              href="/blog"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-sm font-semibold text-ayur-dark hover:text-ayur-primary py-2 border-b border-stone-100 flex items-center justify-between"
+            >
+              <span>Ayurvedic Journal &amp; Blog</span>
+              <span className="text-xs text-ayur-primary font-semibold">Read Guides &rarr;</span>
+            </Link>
 
             <div className="grid grid-cols-2 gap-2 py-2 border-b border-stone-100 text-xs">
               <Link

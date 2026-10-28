@@ -1,5 +1,6 @@
 import { SITE_CONFIG } from "./config";
 import { Product } from "@/types/product";
+import { BlogPost } from "@/types/blog";
 
 /**
  * Organization Schema (Homepage / Knowledge Graph)
@@ -206,3 +207,67 @@ export function getCollectionSchema(
     },
   };
 }
+
+/**
+ * BlogPosting / Article Schema (Blog Post Detail)
+ */
+export function getBlogPostingSchema(blog: BlogPost) {
+  const imageUrl = blog.featuredImage.startsWith("http")
+    ? blog.featuredImage
+    : `${SITE_CONFIG.baseUrl}${blog.featuredImage}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${SITE_CONFIG.baseUrl}/blog/${blog.slug}/#article`,
+    headline: blog.title,
+    description: blog.excerpt,
+    image: [imageUrl],
+    datePublished: blog.publishedAt,
+    dateModified: blog.updatedAt || blog.publishedAt,
+    author: {
+      "@type": "Person",
+      name: blog.author.name,
+      jobTitle: blog.author.role,
+      description: blog.author.credentials,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_CONFIG.name,
+      logo: {
+        "@type": "ImageObject",
+        url: SITE_CONFIG.logoUrl,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${SITE_CONFIG.baseUrl}/blog/${blog.slug}`,
+    },
+    keywords: blog.tags.join(", "),
+  };
+}
+
+/**
+ * Blog Index Collection Schema
+ */
+export function getBlogIndexSchema(blogs: BlogPost[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${SITE_CONFIG.baseUrl}/blog/#collection`,
+    name: "Ayurvedic Journal & Botanical Wellness Blog | SARVA NATURAL",
+    description:
+      "Explore classical Ayurvedic medicine, botanical pharmacology, and herbal guides written by certified Vaidyas and botanical researchers.",
+    url: `${SITE_CONFIG.baseUrl}/blog`,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: blogs.map((post, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `${SITE_CONFIG.baseUrl}/blog/${post.slug}`,
+        name: post.title,
+      })),
+    },
+  };
+}
+

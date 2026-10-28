@@ -3,11 +3,12 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Metadata } from "next";
 import { PRODUCTS, getProductBySlug } from "@/data/products";
+import { getBlogsByProductId } from "@/data/blogs";
 import { ProductGallery } from "@/components/product-detail/ProductGallery";
 import { ProductInfo } from "@/components/product-detail/ProductInfo";
 import { ProductDetailsAccordion } from "@/components/product-detail/ProductDetailsAccordion";
 import { RelatedProducts } from "@/components/product-detail/RelatedProducts";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, BookOpen, Clock, ArrowRight } from "lucide-react";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { getProductSchema, getBreadcrumbSchema } from "@/lib/seo/structured-data";
 import { SITE_CONFIG } from "@/lib/seo/config";
@@ -51,6 +52,7 @@ export default function ProductDetailPage({
   }
 
   const productSchema = getProductSchema(product);
+  const relatedBlogs = getBlogsByProductId(product.id);
   const breadcrumbSchema = getBreadcrumbSchema([
     { name: "Home", path: "/" },
     { name: product.categoryLabel, path: "/collections/all-products" },
@@ -123,6 +125,69 @@ export default function ProductDetailPage({
 
         {/* Classical Formulation Accordion (Ingredients, Dosage, Lab Certs) */}
         <ProductDetailsAccordion product={product} />
+
+        {/* Contextual Botanical Guides & Ayurvedic Research */}
+        {relatedBlogs.length > 0 && (
+          <section
+            aria-label="Ayurvedic Botanical Research & Doctor Guides"
+            className="mt-12 sm:mt-16 pt-8 sm:pt-12 border-t border-ayur-border/80"
+          >
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-8 gap-3">
+              <div>
+                <div className="flex items-center gap-2 text-ayur-primary font-bold text-xs uppercase tracking-wider mb-2">
+                  <BookOpen className="w-3.5 h-3.5 text-ayur-gold" />
+                  <span>Botanical Science &amp; Clinical Insights</span>
+                </div>
+                <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ayur-dark">
+                  Ayurvedic Guides for {product.name}
+                </h2>
+              </div>
+              <Link
+                href="/blog"
+                className="text-xs font-bold text-ayur-primary hover:underline flex items-center gap-1"
+              >
+                <span>View All Journal Guides</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+              {relatedBlogs.map((guide) => (
+                <Link
+                  key={guide.id}
+                  href={`/blog/${guide.slug}`}
+                  className="bg-white rounded-xl p-5 border border-ayur-border/80 shadow-xs hover:shadow-card hover:border-ayur-primary/40 transition-all flex flex-col justify-between group"
+                >
+                  <div>
+                    <div className="flex items-center gap-2 text-xs text-ayur-muted mb-2 font-sans">
+                      <span className="px-2 py-0.5 rounded bg-ayur-parchment text-ayur-primary font-semibold text-[11px]">
+                        {guide.category}
+                      </span>
+                      <span>&bull;</span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3 h-3 text-ayur-gold" />
+                        {guide.readTime}
+                      </span>
+                    </div>
+                    <h3 className="font-serif text-lg font-bold text-ayur-dark group-hover:text-ayur-primary transition-colors leading-snug mb-2">
+                      {guide.title}
+                    </h3>
+                    <p className="text-xs text-stone-600 line-clamp-2 leading-relaxed">
+                      {guide.excerpt}
+                    </p>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-xs">
+                    <span className="text-ayur-muted font-medium">By {guide.author.name}</span>
+                    <span className="font-bold text-ayur-primary group-hover:translate-x-0.5 transition-transform flex items-center gap-1">
+                      <span>Read Guide</span>
+                      <span>&rarr;</span>
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Related / Frequently Paired Formulations */}
         <RelatedProducts currentProduct={product} />

@@ -155,6 +155,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/blog" className="hover:text-white transition-colors">
+                  Ayurvedic Journal &amp; Blog
+                </Link>
+              </li>
+              <li>
                 <Link href="/pages/order-tracking" className="hover:text-white transition-colors">
                   Track Consignment
                 </Link>

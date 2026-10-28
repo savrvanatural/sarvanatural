@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { PRODUCTS } from "@/data/products";
+import { getAllPublishedBlogs } from "@/data/blogs";
 import { SITE_CONFIG } from "@/lib/seo/config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -43,6 +44,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: contentLastModified,
       changeFrequency: "monthly",
       priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: contentLastModified,
+      changeFrequency: "weekly",
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/pages/about-us`,
@@ -113,5 +120,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.95,
   }));
 
-  return [...staticRoutes, ...productRoutes];
+  const blogRoutes: MetadataRoute.Sitemap = getAllPublishedBlogs().map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.updatedAt || post.publishedAt),
+    changeFrequency: "weekly",
+    priority: 0.8,
+  }));
+
+  return [...staticRoutes, ...productRoutes, ...blogRoutes];
 }
