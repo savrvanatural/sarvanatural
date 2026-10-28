@@ -9,6 +9,11 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         disallow: ["/cart", "/account", "/api/"],
       },
+      {
+        userAgent: "OAI-SearchBot",
+        allow: "/",
+        disallow: ["/cart", "/account", "/api/"],
+      },
     ],
     sitemap: `${SITE_CONFIG.baseUrl}/sitemap.xml`,
   };
