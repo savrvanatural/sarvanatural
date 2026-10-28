@@ -9,7 +9,22 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         disallow: ["/cart", "/account", "/api/"],
       },
+      {
+        userAgent: [
+          "Googlebot",
+          "Bingbot",
+          "GPTBot",
+          "OAI-SearchBot",
+          "PerplexityBot",
+          "ClaudeBot",
+          "Applebot",
+        ],
+        allow: "/",
+        disallow: ["/cart", "/account", "/api/"],
+      },
     ],
-    sitemap: `${SITE_CONFIG.baseUrl}/sitemap.xml`,
+    sitemap: [
+      `${SITE_CONFIG.baseUrl}/sitemap.xml`,
+    ],
   };
 }

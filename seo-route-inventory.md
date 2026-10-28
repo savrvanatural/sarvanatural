@@ -5,6 +5,7 @@
 - **INDEXABLE:** Public 200 OK canonical endpoint included in XML sitemap and allowed in `robots.txt`.
 - **NOINDEX:** Private / user session endpoint shielded with `noindex, nofollow` and disallowed in `robots.txt`.
 - **REDIRECT (308):** Consolidated legacy or duplicate endpoint permanently redirected to canonical destination.
+- **FEED:** Machine-readable catalog feed for Google Merchant Center / Shopping.
 
 ---
 
@@ -20,6 +21,7 @@
 | `/products/moringa` | **INDEXABLE** | `https://www.sarvanatural.com/products/moringa` | `Sarva Natural Moringa Capsules (शिग्रु (Shigru)) \| SARVA NATURAL` | `Product`, `Offer`, `BreadcrumbList` | Complete (Product Image) |
 | `/products/triphala` | **INDEXABLE** | `https://www.sarvanatural.com/products/triphala` | `Sarva Natural Triphala Capsules (त्रिफला रसायन (Triphala Rasayana)) \| SARVA NATURAL` | `Product`, `Offer`, `BreadcrumbList` | Complete (Product Image) |
 | `/products/ashwagandha` | **INDEXABLE** | `https://www.sarvanatural.com/products/ashwagandha` | `Sarva Natural Ashwagandha Capsules (अश्वगंधा रसायन (Ashwagandha Rasayana)) \| SARVA NATURAL` | `Product`, `Offer`, `BreadcrumbList` | Complete (Product Image) |
+| `/pages/botanicals` | **INDEXABLE** | `https://www.sarvanatural.com/pages/botanicals` | `Classical Ayurvedic Botanical Guide — Shigru, Triphala & Ashwagandha \| SARVA NATURAL` | `Article`, `BreadcrumbList` | Complete |
 | `/pages/about-us` | **INDEXABLE** | `https://www.sarvanatural.com/pages/about-us` | `About Us — Earth • Health • Wellness \| SARVA NATURAL` | `BreadcrumbList`, `AboutPage` | Complete |
 | `/pages/our-story` | **INDEXABLE** | `https://www.sarvanatural.com/pages/our-story` | `Our Story — Roots, Heritage & Botanical Lineage \| SARVA NATURAL` | `BreadcrumbList` | Complete |
 | `/pages/quality` | **INDEXABLE** | `https://www.sarvanatural.com/pages/quality` | `Quality & Lab Standards — Heavy Metal Tested & GMP Certified \| SARVA NATURAL` | `BreadcrumbList` | Complete |
@@ -33,19 +35,20 @@
 | `/pages/refund-policy` | **INDEXABLE** | `https://www.sarvanatural.com/pages/refund-policy` | `Refund & Cancellation Policy \| SARVA NATURAL` | `BreadcrumbList` | Complete |
 | `/shop` | **INDEXABLE (CANONICALIZED)** | `https://www.sarvanatural.com/collections/all-products` | `Shop All Ayurvedic Formulations \| SARVA NATURAL` | Handled via canonical | Complete |
 | `/pages/track-order` | **REDIRECT (308)** | `https://www.sarvanatural.com/pages/order-tracking` | N/A (308 Permanent Redirect) | N/A | N/A |
+| `/product-feed.xml` | **CATALOG FEED** | `https://www.sarvanatural.com/product-feed.xml` | Google Merchant Center XML Feed | RSS 2.0 Base Shopping Schema | N/A |
 | `/cart` | **NOINDEX** | `https://www.sarvanatural.com` | `Shopping Cart \| SARVA NATURAL` | None (Shielded) | Shielded |
 | `/account` | **NOINDEX** | `https://www.sarvanatural.com` | `Patron Account \| SARVA NATURAL` | None (Shielded) | Shielded |
 | `/robots.txt` | **SYSTEM FILE** | `https://www.sarvanatural.com/robots.txt` | Text Directives | N/A | N/A |
-| `/sitemap.xml` | **SYSTEM SITEMAP** | `https://www.sarvanatural.com/sitemap.xml` | XML Schema (20 URLs) | N/A | N/A |
+| `/sitemap.xml` | **SYSTEM SITEMAP** | `https://www.sarvanatural.com/sitemap.xml` | XML Schema (21 URLs) | N/A | N/A |
 
 ---
 
 ## Sitemap Coverage Summary
-- Total Canonical Indexable URLs in Sitemap: **20**
+- Total Canonical Indexable URLs in Sitemap: **21**
   - Homepage: 1
   - Product Pages: 3
   - Collection Pages: 4
-  - Informational / Trust Pages: 4 (`about-us`, `our-story`, `quality`, `faqs`)
+  - Informational / Botanical Monographs: 5 (`about-us`, `our-story`, `quality`, `faqs`, `botanicals`)
   - Consultation / Engagement: 1 (`consultation`)
   - Customer Service / Dispatch: 2 (`contact-us`, `order-tracking`)
   - Policies & Legal: 4 (`privacy-policy`, `terms-of-service`, `shipping-policy`, `refund-policy`)
@@ -53,3 +56,4 @@
   - `/cart` (noindex)
   - `/account` (noindex)
   - `/pages/track-order` (308 redirect)
+  - `/product-feed.xml` (Catalog feed, not HTML)
