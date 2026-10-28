@@ -3,16 +3,30 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2, ArrowRight } from "lucide-react";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+import { getBreadcrumbSchema } from "@/lib/seo/structured-data";
 
-export const metadata: Metadata = {
-  title: "About Us | SARVA NATURAL — Earth • Health • Wellness",
+export const metadata: Metadata = buildPageMetadata({
+  title: "About Us — Earth • Health • Wellness",
   description:
     "Learn about SARVA NATURAL's commitment to classical Ayurvedic formulations, 100% vegetarian capsules, and pure botanical sourcing.",
-};
+  path: "/pages/about-us",
+});
 
 export default function AboutUsPage() {
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "About Us", path: "/pages/about-us" },
+  ]);
+
   return (
     <div className="bg-ayur-cream min-h-screen py-10 sm:py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
+        }}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
@@ -45,57 +59,69 @@ export default function AboutUsPage() {
             In today&apos;s commercial landscape, wellness brands race to release dozens of trendy products every season—often diluting active ingredients with synthetic excipients, silicon dioxide, and bovine gelatin capsules.
           </p>
           <p>
-            At <strong>SARVA NATURAL</strong>, we practice deliberate restraint. We formulate exclusively around the three most revered botanical masterworks of classical Ayurvedic science:
+            SARVA NATURAL takes the opposite path: <strong>The discipline of focus</strong>. We formulate and produce exactly three classical remedies:
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 my-6">
-            <div className="p-4 bg-ayur-parchment/40 rounded-lg border border-ayur-border">
-              <h3 className="font-serif font-bold text-base text-ayur-dark mb-1">1. Moringa (Shigru)</h3>
-              <p className="text-xs text-stone-600">The premier botanical whole-food multivitamin providing 90+ plant nutrients and natural vitality.</p>
-            </div>
-            <div className="p-4 bg-ayur-parchment/40 rounded-lg border border-ayur-border">
-              <h3 className="font-serif font-bold text-base text-ayur-dark mb-1">2. Triphala Rasayana</h3>
-              <p className="text-xs text-stone-600">The classical equal 1:1:1 synergy of Amalaki, Haritaki, and Bibhitaki for gentle colon detox.</p>
-            </div>
-            <div className="p-4 bg-ayur-parchment/40 rounded-lg border border-ayur-border">
-              <h3 className="font-serif font-bold text-base text-ayur-dark mb-1">3. Ashwagandha</h3>
-              <p className="text-xs text-stone-600">Pure root extract standardized with withanolides to reduce stress and foster restorative sleep.</p>
-            </div>
-          </div>
-
-          <h2 className="font-serif text-2xl font-bold text-ayur-dark pt-4 border-t border-stone-100">
-            Our Strict Quality Commitments
-          </h2>
-          <ul className="space-y-3">
+          <ul className="space-y-2.5 my-4 pl-2">
             <li className="flex items-start gap-2.5">
               <CheckCircle2 className="w-4 h-4 text-emerald-700 flex-shrink-0 mt-0.5" />
-              <span><strong>100% Plant-Based HPMC Capsules:</strong> We never compromise with animal gelatin or bovine collagen shells.</span>
+              <span>
+                <strong>Moringa (Shigru):</strong> Pure whole-food bioavailable nutrition, iron, and cellular Ojas.
+              </span>
             </li>
             <li className="flex items-start gap-2.5">
               <CheckCircle2 className="w-4 h-4 text-emerald-700 flex-shrink-0 mt-0.5" />
-              <span><strong>ICP-MS Spectrometry Testing:</strong> Every batch is independently verified for zero toxic heavy metals (Lead, Mercury, Cadmium, Arsenic).</span>
+              <span>
+                <strong>Triphala:</strong> Classical 1:1:1 ratio for gentle overnight colon cleanse and digestive fire (Deepana).
+              </span>
             </li>
             <li className="flex items-start gap-2.5">
               <CheckCircle2 className="w-4 h-4 text-emerald-700 flex-shrink-0 mt-0.5" />
-              <span><strong>AYUSH GMP Licensed Facility:</strong> Manufactured strictly under certified Good Manufacturing Practices (Schedule T).</span>
-            </li>
-            <li className="flex items-start gap-2.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-700 flex-shrink-0 mt-0.5" />
-              <span><strong>Zero Fillers or Binders:</strong> No magnesium stearate, artificial food dyes, or preservative powders.</span>
+              <span>
+                <strong>Ashwagandha:</strong> Standardized root extract for cortisol balance, restful sleep, and vitality.
+              </span>
             </li>
           </ul>
+          <p>
+            By channeling our entire testing and manufacturing resources into these three master formulations, we achieve an unmatched standard of potency, consistency, and therapeutic efficacy.
+          </p>
         </div>
 
-        {/* CTA */}
-        <div className="text-center p-8 bg-ayur-primary text-white rounded-xl shadow-card">
-          <h3 className="font-serif text-2xl font-bold mb-2 text-ayur-gold">Experience The Three Formulations</h3>
+        {/* Core Pillars */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-white p-6 rounded-xl border border-ayur-border shadow-soft">
+            <span className="font-serif text-3xl font-bold text-ayur-gold/60 block mb-2">01</span>
+            <h3 className="font-serif text-lg font-bold text-ayur-dark mb-2">100% Vegetarian</h3>
+            <p className="text-xs text-stone-600 leading-relaxed">
+              We encapsulate exclusively in plant-cellulose HPMC shells. Completely free from bovine gelatin, bone char, and artificial shellacs.
+            </p>
+          </div>
+          <div className="bg-white p-6 rounded-xl border border-ayur-border shadow-soft">
+            <span className="font-serif text-3xl font-bold text-ayur-gold/60 block mb-2">02</span>
+            <h3 className="font-serif text-lg font-bold text-ayur-dark mb-2">Lab-Certified Purity</h3>
+            <p className="text-xs text-stone-600 leading-relaxed">
+              Every production lot undergoes rigorous ICP-MS testing for heavy metals (Lead, Cadmium, Arsenic, Mercury) and pathogen screening.
+            </p>
+          </div>
+          <div className="bg-white p-6 rounded-xl border border-ayur-border shadow-soft">
+            <span className="font-serif text-3xl font-bold text-ayur-gold/60 block mb-2">03</span>
+            <h3 className="font-serif text-lg font-bold text-ayur-dark mb-2">Zero Chemical Binders</h3>
+            <p className="text-xs text-stone-600 leading-relaxed">
+              No talc, no magnesium stearate, and no synthetic preservatives. Pure standardized herbal extracts and nothing else.
+            </p>
+          </div>
+        </div>
+
+        {/* CTA Banner */}
+        <div className="bg-ayur-dark text-white p-8 rounded-2xl text-center shadow-card">
+          <h3 className="font-serif text-2xl font-bold mb-2">Experience Classical Ayurveda</h3>
           <p className="text-xs text-ayur-sand/80 max-w-md mx-auto mb-6">
-            Begin your journey towards grounded digestion, vibrant cellular energy, and tranquil restorative sleep.
+            Begin with our trio of pure botanicals crafted for natural vitality, smooth digestion, and restorative sleep.
           </p>
           <Link
             href="/collections/all-products"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-ayur-gold text-ayur-dark font-bold text-xs uppercase tracking-wider rounded hover:bg-ayur-goldMuted transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-ayur-gold hover:bg-ayur-goldMuted text-ayur-dark font-semibold text-xs uppercase tracking-wider rounded transition-colors"
           >
-            <span>Explore All 3 Formulations</span>
+            <span>Explore All Formulations</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

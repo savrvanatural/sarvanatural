@@ -1,10 +1,15 @@
 import React, { Suspense } from "react";
 import { CatalogView } from "@/components/catalog/CatalogView";
 import { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = {
-  title: "Shop All Ayurvedic Formulations | SARVA NATURAL",
-  description: "Browse authentic single-origin Moringa, Triphala, and Ashwagandha pure herbal capsules crafted by SARVA NATURAL.",
+  ...buildPageMetadata({
+    title: "Shop All Ayurvedic Formulations",
+    description:
+      "Browse authentic single-origin Moringa, Triphala, and Ashwagandha pure herbal capsules crafted by SARVA NATURAL.",
+    path: "/collections/all-products", // Canonical point to primary collection URL
+  }),
 };
 
 export default function ShopPage() {

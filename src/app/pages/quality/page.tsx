@@ -2,14 +2,22 @@ import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { ShieldCheck, Leaf, FileCheck, ArrowRight } from "lucide-react";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+import { getBreadcrumbSchema } from "@/lib/seo/structured-data";
 
-export const metadata: Metadata = {
-  title: "Quality & Lab Standards | SARVA NATURAL — Earth • Health • Wellness",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Quality & Lab Standards — Heavy Metal Tested & GMP Certified",
   description:
     "Explore SARVA NATURAL's rigorous quality framework: ICP-MS heavy metal testing, AYUSH GMP facility compliance, and 100% vegetarian HPMC capsules.",
-};
+  path: "/pages/quality",
+});
 
 export default function QualityPage() {
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Quality & Standards", path: "/pages/quality" },
+  ]);
+
   const testingProtocols = [
     {
       title: "ICP-MS Heavy Metal Spectrometry",
@@ -31,6 +39,12 @@ export default function QualityPage() {
 
   return (
     <div className="bg-ayur-cream min-h-screen py-10 sm:py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
+        }}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-xs font-semibold uppercase tracking-wider mb-2">
@@ -45,73 +59,61 @@ export default function QualityPage() {
           </p>
         </div>
 
-        {/* Quality Pillars Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-12">
-          {testingProtocols.map((p, idx) => (
-            <div key={idx} className="p-6 bg-white rounded-xl border border-ayur-border shadow-soft">
-              <div className="w-10 h-10 rounded-full bg-ayur-parchment flex items-center justify-center text-ayur-primary mb-3 border border-ayur-gold/30">
-                <FileCheck className="w-5 h-5 text-ayur-gold" />
-              </div>
-              <h3 className="font-serif font-bold text-lg text-ayur-dark mb-2">{p.title}</h3>
-              <p className="text-xs text-stone-600 leading-relaxed font-sans">{p.desc}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Vegetarian Guarantee Banner */}
-        <div className="bg-emerald-900 text-white p-6 sm:p-8 rounded-xl shadow-card mb-12">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-            <div className="w-12 h-12 rounded-full bg-emerald-800 flex items-center justify-center flex-shrink-0 text-ayur-gold">
-              <Leaf className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className="font-serif text-xl font-bold mb-1 text-ayur-goldLight">
-                100% Vegetarian HPMC Capsules
-              </h3>
-              <p className="text-xs text-emerald-100 leading-relaxed">
-                Many capsules in the market are covertly made of gelatin—an animal byproduct derived from boiling bovine or porcine skin and bones. SARVA NATURAL uses only pharmaceutical-grade HPMC (Hydroxypropyl Methylcellulose) derived entirely from sustainable plant cellulose. Pure, ethical, and suitable for strict vegetarians.
-              </p>
-            </div>
+        {/* Quality Badges */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+          <div className="bg-white p-5 rounded-xl border border-ayur-border text-center shadow-soft">
+            <ShieldCheck className="w-8 h-8 text-emerald-700 mx-auto mb-2" />
+            <h3 className="font-serif text-sm font-bold text-ayur-dark">GMP Certified</h3>
+            <p className="text-[11px] text-stone-500 mt-1">Schedule T Compliance</p>
+          </div>
+          <div className="bg-white p-5 rounded-xl border border-ayur-border text-center shadow-soft">
+            <Leaf className="w-8 h-8 text-emerald-700 mx-auto mb-2" />
+            <h3 className="font-serif text-sm font-bold text-ayur-dark">100% Veg HPMC</h3>
+            <p className="text-[11px] text-stone-500 mt-1">Zero Animal Gelatin</p>
+          </div>
+          <div className="bg-white p-5 rounded-xl border border-ayur-border text-center shadow-soft">
+            <FileCheck className="w-8 h-8 text-emerald-700 mx-auto mb-2" />
+            <h3 className="font-serif text-sm font-bold text-ayur-dark">Heavy Metal Tested</h3>
+            <p className="text-[11px] text-stone-500 mt-1">ICP-MS Validated</p>
+          </div>
+          <div className="bg-white p-5 rounded-xl border border-ayur-border text-center shadow-soft">
+            <ShieldCheck className="w-8 h-8 text-emerald-700 mx-auto mb-2" />
+            <h3 className="font-serif text-sm font-bold text-ayur-dark">AYUSH Licensed</h3>
+            <p className="text-[11px] text-stone-500 mt-1">Government Approved</p>
           </div>
         </div>
 
-        {/* Certifications Table */}
-        <div className="bg-white p-6 sm:p-8 rounded-xl border border-ayur-border shadow-soft mb-12">
-          <h3 className="font-serif text-xl font-bold text-ayur-dark mb-4">
-            Official Manufacturing Certifications
-          </h3>
-          <div className="divide-y divide-stone-100 text-xs font-sans">
-            <div className="py-3 flex items-center justify-between">
-              <div>
-                <strong className="text-ayur-dark block">AYUSH GMP Licensed (Schedule T)</strong>
-                <span className="text-stone-500">Ministry of AYUSH, Government of India Good Manufacturing Standards</span>
+        {/* Protocols Detailed */}
+        <div className="bg-white p-6 sm:p-10 rounded-xl border border-ayur-border shadow-soft space-y-8 font-sans mb-12">
+          <div>
+            <h2 className="font-serif text-2xl font-bold text-ayur-dark mb-2">
+              Four-Stage Analytical Testing Protocol
+            </h2>
+            <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
+              Every production batch undergoes mandatory analytical validation before clearance for encapsulation.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {testingProtocols.map((protocol, i) => (
+              <div key={i} className="border-l-2 border-ayur-gold pl-4 sm:pl-6 space-y-1">
+                <span className="text-[10px] font-mono text-ayur-gold uppercase tracking-wider font-semibold">
+                  Stage 0{i + 1}
+                </span>
+                <h3 className="font-serif text-base font-bold text-ayur-dark">{protocol.title}</h3>
+                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">{protocol.desc}</p>
               </div>
-              <span className="px-2 py-1 bg-emerald-100 text-emerald-800 font-semibold rounded text-[10px]">VERIFIED</span>
-            </div>
-            <div className="py-3 flex items-center justify-between">
-              <div>
-                <strong className="text-ayur-dark block">ISO 22000 &amp; HACCP Compliant</strong>
-                <span className="text-stone-500">Hazard Analysis Critical Control Point Food Safety System</span>
-              </div>
-              <span className="px-2 py-1 bg-emerald-100 text-emerald-800 font-semibold rounded text-[10px]">VERIFIED</span>
-            </div>
-            <div className="py-3 flex items-center justify-between">
-              <div>
-                <strong className="text-ayur-dark block">ICP-MS Heavy Metal Clearance</strong>
-                <span className="text-stone-500">Every single batch cleared for Lead, Mercury, Arsenic, Cadmium</span>
-              </div>
-              <span className="px-2 py-1 bg-emerald-100 text-emerald-800 font-semibold rounded text-[10px]">VERIFIED</span>
-            </div>
+            ))}
           </div>
         </div>
 
         {/* CTA */}
-        <div className="text-center">
+        <div className="text-center pt-2">
           <Link
             href="/collections/all-products"
-            className="inline-flex items-center gap-2 px-6 py-3.5 bg-ayur-primary text-white font-semibold text-xs uppercase tracking-wider rounded hover:bg-ayur-secondary transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-ayur-primary hover:bg-ayur-secondary text-white font-semibold text-xs uppercase tracking-wider rounded transition-colors"
           >
-            <span>Browse Lab-Tested Formulations</span>
+            <span>Shop Pure Tested Formulations</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

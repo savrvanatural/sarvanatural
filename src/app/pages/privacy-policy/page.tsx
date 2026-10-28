@@ -1,14 +1,28 @@
 import React from "react";
 import { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+import { getBreadcrumbSchema } from "@/lib/seo/structured-data";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy | SARVA NATURAL",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Privacy Policy",
   description: "Privacy policy and personal data protection principles of SARVA NATURAL.",
-};
+  path: "/pages/privacy-policy",
+});
 
 export default function PrivacyPolicyPage() {
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Privacy Policy", path: "/pages/privacy-policy" },
+  ]);
+
   return (
     <div className="bg-ayur-cream min-h-screen py-10 sm:py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
+        }}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <span className="text-xs font-semibold uppercase tracking-widest text-ayur-primary font-sans block mb-1">
@@ -28,27 +42,25 @@ export default function PrivacyPolicyPage() {
 
           <h2 className="font-serif text-xl font-bold text-ayur-dark">2. Information We Collect</h2>
           <p>
-            When you interact with our website, we may collect the following information:
-          </p>
-          <ul className="list-disc pl-5 space-y-1.5">
-            <li><strong>Contact details:</strong> Name, phone number, shipping address, and email address.</li>
-            <li><strong>Order information:</strong> Products selected, variant quantities, and delivery instructions.</li>
-            <li><strong>Consultation context:</strong> General health concerns (e.g., digestion, stress, sleep) shared voluntarily for guidance.</li>
-          </ul>
-
-          <h2 className="font-serif text-xl font-bold text-ayur-dark">3. Usage of Information</h2>
-          <p>
-            Your information is used strictly to process orders, arrange courier delivery with our express partners, communicate transit updates, and provide customer support. We never sell, rent, or trade customer data to third-party marketing brokers.
+            We collect personal information necessary to fulfill orders, provide Ayurvedic health guidance, and improve our formulations. This includes your name, delivery address, phone number, email address, and voluntary details shared during consultation assessments.
           </p>
 
-          <h2 className="font-serif text-xl font-bold text-ayur-dark">4. Payment Security</h2>
+          <h2 className="font-serif text-xl font-bold text-ayur-dark">3. Payment &amp; Financial Security</h2>
           <p>
-            All electronic payment transactions are encrypted and processed through certified RBI-compliant payment gateways. SARVA NATURAL never stores credit card CVVs or bank credentials on our local servers.
+            All online transactions are securely encrypted using 256-bit SSL protocols. We do not store, log, or have access to your full credit card numbers, debit card PINs, or UPI security pins.
+          </p>
+
+          <h2 className="font-serif text-xl font-bold text-ayur-dark">4. Zero Data Commercialization</h2>
+          <p>
+            We adhere to a strict non-disclosure guarantee: <strong>We do not sell, rent, or lease your personal information to third-party advertisers, data brokers, or marketing networks.</strong>
           </p>
 
           <h2 className="font-serif text-xl font-bold text-ayur-dark">5. Contact Our Privacy Officer</h2>
           <p>
-            If you have questions regarding your data or wish to exercise your right to erasure, please contact us at <a href="mailto:care@sarvanatural.com" className="text-ayur-primary underline font-semibold">care@sarvanatural.com</a>.
+            For questions regarding data privacy or to request the deletion of your customer record, contact our compliance team at{" "}
+            <a href="mailto:care@sarvanatural.com" className="text-ayur-primary font-semibold hover:underline">
+              care@sarvanatural.com
+            </a>.
           </p>
         </div>
       </div>

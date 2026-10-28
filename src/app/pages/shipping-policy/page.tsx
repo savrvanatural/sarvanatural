@@ -1,14 +1,28 @@
 import React from "react";
 import { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+import { getBreadcrumbSchema } from "@/lib/seo/structured-data";
 
-export const metadata: Metadata = {
-  title: "Shipping & Delivery Policy | SARVA NATURAL",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Shipping & Delivery Policy",
   description: "Shipping timelines, delivery rates, and courier coverage for SARVA NATURAL orders.",
-};
+  path: "/pages/shipping-policy",
+});
 
 export default function ShippingPolicyPage() {
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Shipping Policy", path: "/pages/shipping-policy" },
+  ]);
+
   return (
     <div className="bg-ayur-cream min-h-screen py-10 sm:py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
+        }}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <span className="text-xs font-semibold uppercase tracking-widest text-ayur-primary font-sans block mb-1">

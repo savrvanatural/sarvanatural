@@ -1,3 +1,5 @@
-import OrderTrackingPage from "../order-tracking/page";
+import { permanentRedirect } from "next/navigation";
 
-export default OrderTrackingPage;
+export default function TrackOrderLegacyRoute() {
+  permanentRedirect("/pages/order-tracking");
+}

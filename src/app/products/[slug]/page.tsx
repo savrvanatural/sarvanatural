@@ -8,6 +8,9 @@ import { ProductInfo } from "@/components/product-detail/ProductInfo";
 import { ProductDetailsAccordion } from "@/components/product-detail/ProductDetailsAccordion";
 import { RelatedProducts } from "@/components/product-detail/RelatedProducts";
 import { ArrowLeft } from "lucide-react";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+import { getProductSchema, getBreadcrumbSchema } from "@/lib/seo/structured-data";
+import { SITE_CONFIG } from "@/lib/seo/config";
 
 export async function generateStaticParams() {
   return PRODUCTS.map((product) => ({
@@ -23,14 +26,17 @@ export async function generateMetadata({
   const product = getProductBySlug(params.slug);
   if (!product) {
     return {
-      title: "Product Not Found | SARVA NATURAL",
+      title: "Product Not Found",
+      robots: { index: false, follow: false },
     };
   }
 
-  return {
-    title: `${product.name} (${product.sanskritName}) | SARVA NATURAL`,
+  return buildPageMetadata({
+    title: `${product.name} (${product.sanskritName})`,
     description: product.shortDescription,
-  };
+    path: `/products/${product.slug}`,
+    image: product.images[0] || SITE_CONFIG.defaultOgImage,
+  });
 }
 
 export default function ProductDetailPage({
@@ -44,38 +50,25 @@ export default function ProductDetailPage({
     notFound();
   }
 
+  const productSchema = getProductSchema(product);
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: product.categoryLabel, path: "/collections/all-products" },
+    { name: product.name, path: `/products/${product.slug}` },
+  ]);
+
   return (
     <div className="bg-ayur-cream min-h-screen py-6 sm:py-12 border-b border-ayur-border/60">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Product",
-            name: product.name,
-            image: product.images,
-            description: product.shortDescription,
-            brand: {
-              "@type": "Brand",
-              name: "SARVA NATURAL",
-            },
-            offers: {
-              "@type": "Offer",
-              url: `https://sarvanatural.com/products/${product.slug}`,
-              priceCurrency: "INR",
-              price: product.variants[0].price,
-              priceValidUntil: "2027-12-31",
-              itemCondition: "https://schema.org/NewCondition",
-              availability: product.inStock
-                ? "https://schema.org/InStock"
-                : "https://schema.org/OutOfStock",
-            },
-            aggregateRating: {
-              "@type": "AggregateRating",
-              ratingValue: product.rating,
-              reviewCount: product.reviewCount,
-            },
-          }),
+          __html: JSON.stringify(productSchema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
         }}
       />
       <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">

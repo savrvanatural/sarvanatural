@@ -3,16 +3,30 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+import { getBreadcrumbSchema } from "@/lib/seo/structured-data";
 
-export const metadata: Metadata = {
-  title: "Our Story | SARVA NATURAL — Earth • Health • Wellness",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Our Story — Roots, Heritage & Botanical Lineage",
   description:
     "The journey of SARVA NATURAL: How our quest for unadulterated Ayurvedic botanicals led to our signature trio of Moringa, Triphala, and Ashwagandha.",
-};
+  path: "/pages/our-story",
+});
 
 export default function OurStoryPage() {
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Our Story", path: "/pages/our-story" },
+  ]);
+
   return (
     <div className="bg-ayur-cream min-h-screen py-10 sm:py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
+        }}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
           <div className="w-16 h-16 rounded-full bg-ayur-parchment overflow-hidden border-2 border-ayur-gold/40 shadow-sm mx-auto mb-4 flex items-center justify-center">
@@ -43,39 +57,44 @@ export default function OurStoryPage() {
           <p>
             Traditional texts like the <em>Charaka Samhita</em> and <em>Bhavaprakasha</em> are unequivocal: herbs must be harvested at the correct biological maturity, shade-dried to safeguard volatile phytochemicals, and administered without adulteration.
           </p>
+          <p>
+            In response, we set out to build a lineage-first formulation house: a sanctuary where ancient classical wisdom meets rigorous modern laboratory standards.
+          </p>
 
-          <h2 className="font-serif text-2xl font-bold text-ayur-dark pt-4 border-t border-stone-100">
-            A Return to Classical Mastery
+          <h2 className="font-serif text-2xl font-bold text-ayur-dark pt-4">
+            Why Only Three Formulations?
           </h2>
           <p>
-            Instead of building an empire of mediocre products, we made a vow to master just three foundational formulations:
+            Modern commerce encourages companies to launch fifty variations of the same product to dominate shelf space. At SARVA NATURAL, we deliberately resist this trend.
           </p>
-          <div className="space-y-4 my-4">
-            <div className="p-4 bg-emerald-50/50 rounded-lg border border-emerald-200/60">
-              <h4 className="font-serif font-bold text-base text-emerald-950 mb-1">Organic Moringa Oleifera (Shigru)</h4>
-              <p className="text-xs text-stone-600">Sourced from organic farmlands where mature leaves are hand-picked at dawn, washed in pure water, and dried under shade below 40°C to preserve heat-sensitive bio-flavonoids.</p>
+          <p>
+            Ayurveda teaches that holistic vitality rests upon three core physiological pillars:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
+            <div className="p-4 rounded-lg bg-ayur-cream/60 border border-ayur-border">
+              <span className="font-serif text-lg font-bold text-ayur-primary block mb-1">Posha (Nutrition)</span>
+              <p className="text-xs text-stone-600">Moringa provides whole-food plant nutrition, iron, and antioxidant vitality.</p>
             </div>
-            <div className="p-4 bg-amber-50/50 rounded-lg border border-amber-200/60">
-              <h4 className="font-serif font-bold text-base text-amber-950 mb-1">Classical Equal-Ratio Triphala</h4>
-              <p className="text-xs text-stone-600">We refuse commercial shortcuts that skimp on Haritaki or Bibhitaki. Our Triphala maintains the canonical 1:1:1 ratio formulated strictly from de-seeded fruit pulp.</p>
+            <div className="p-4 rounded-lg bg-ayur-cream/60 border border-ayur-border">
+              <span className="font-serif text-lg font-bold text-ayur-primary block mb-1">Shodhana (Cleanse)</span>
+              <p className="text-xs text-stone-600">Triphala cleanses deep colon Ama and gently regulates overnight peristalsis.</p>
             </div>
-            <div className="p-4 bg-stone-50 rounded-lg border border-stone-200">
-              <h4 className="font-serif font-bold text-base text-ayur-dark mb-1">Standardized Ashwagandha Root Extract</h4>
-              <p className="text-xs text-stone-600">Derived exclusively from mature Withania somnifera roots, verified for active withanolides without any synthetic cortisol-modulating additives.</p>
+            <div className="p-4 rounded-lg bg-ayur-cream/60 border border-ayur-border">
+              <span className="font-serif text-lg font-bold text-ayur-primary block mb-1">Rasayana (Rejuvenation)</span>
+              <p className="text-xs text-stone-600">Ashwagandha restores neuroendocrine resilience and induces restorative sleep.</p>
             </div>
           </div>
-
           <p>
-            Today, SARVA NATURAL stands as a sanctuary of honest herbal integrity for patrons across India seeking real wellness rooted in the soil, vetted by science, and honored by tradition.
+            By dedicating our entire supply chain, analytical testing, and extraction processes exclusively to Moringa, Triphala, and Ashwagandha, we guarantee that every capsule delivered to your home represents the pinnacle of purity and classical potency.
           </p>
         </div>
 
-        <div className="text-center">
+        <div className="text-center pt-4">
           <Link
-            href="/collections/all-products"
-            className="inline-flex items-center gap-2 px-6 py-3.5 bg-ayur-primary text-white font-semibold text-xs uppercase tracking-wider rounded hover:bg-ayur-secondary transition-colors shadow-sm"
+            href="/pages/quality"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-ayur-primary hover:text-ayur-secondary transition-colors"
           >
-            <span>Explore The 3 Formulations</span>
+            <span>Learn about our laboratory testing and quality certifications</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

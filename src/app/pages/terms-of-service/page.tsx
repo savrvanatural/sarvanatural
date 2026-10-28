@@ -1,14 +1,28 @@
 import React from "react";
 import { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+import { getBreadcrumbSchema } from "@/lib/seo/structured-data";
 
-export const metadata: Metadata = {
-  title: "Terms of Service | SARVA NATURAL",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Terms of Service",
   description: "Terms and conditions of service for SARVA NATURAL.",
-};
+  path: "/pages/terms-of-service",
+});
 
 export default function TermsOfServicePage() {
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Terms of Service", path: "/pages/terms-of-service" },
+  ]);
+
   return (
     <div className="bg-ayur-cream min-h-screen py-10 sm:py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
+        }}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <span className="text-xs font-semibold uppercase tracking-widest text-ayur-primary font-sans block mb-1">

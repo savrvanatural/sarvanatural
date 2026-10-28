@@ -5,6 +5,7 @@ import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { StoreProviders } from "@/components/layout/StoreProviders";
+import { SITE_CONFIG } from "@/lib/seo/config";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -21,20 +22,49 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "SARVA NATURAL | Earth • Health • Wellness — Classical Formulations",
-  description:
-    "SARVA NATURAL — Earth • Health • Wellness. Pure, authentic Ayurvedic capsules: Moringa, Triphala, and Ashwagandha crafted from sustainably harvested wild botanicals.",
-  keywords: [
-    "SARVA NATURAL",
-    "Sarva Natural Ayurveda",
-    "Earth Health Wellness",
-    "Ayurveda",
-    "Moringa Capsules",
-    "Triphala Capsules",
-    "Ashwagandha Capsules",
-    "Organic Ayurvedic Herbs",
-    "Pure Botanical Nutrition",
-  ],
+  metadataBase: new URL(SITE_CONFIG.baseUrl),
+  title: {
+    default: SITE_CONFIG.defaultTitle,
+    template: SITE_CONFIG.titleTemplate,
+  },
+  description: SITE_CONFIG.defaultDescription,
+  keywords: [...SITE_CONFIG.keywords],
+  alternates: {
+    canonical: SITE_CONFIG.baseUrl,
+  },
+  openGraph: {
+    title: SITE_CONFIG.defaultTitle,
+    description: SITE_CONFIG.defaultDescription,
+    url: SITE_CONFIG.baseUrl,
+    siteName: SITE_CONFIG.name,
+    locale: "en_IN",
+    type: "website",
+    images: [
+      {
+        url: SITE_CONFIG.defaultOgImage,
+        width: 1200,
+        height: 630,
+        alt: "SARVA NATURAL — Earth • Health • Wellness Classical Formulations",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_CONFIG.defaultTitle,
+    description: SITE_CONFIG.defaultDescription,
+    images: [SITE_CONFIG.defaultOgImage],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
